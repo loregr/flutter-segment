@@ -353,12 +353,16 @@ static BOOL wasSetupFromFile = NO;
     NSString *writeKey = [dict objectForKey: @"com.claimsforce.segment.WRITE_KEY"];
     BOOL trackApplicationLifecycleEvents = [[dict objectForKey: @"com.claimsforce.segment.TRACK_APPLICATION_LIFECYCLE_EVENTS"] boolValue];
     BOOL isAmplitudeIntegrationEnabled = [[dict objectForKey: @"com.claimsforce.segment.ENABLE_AMPLITUDE_INTEGRATION"] boolValue];
+    BOOL trackPushNotifications = [[dict objectForKey: @"com.claimsforce.segment.TRACK_PUSH_NOTIFICATIONS"] boolValue];
+    BOOL trackDeepLinks = [[dict objectForKey: @"com.claimsforce.segment.TRACK_DEEP_LINKS"] boolValue];
     if(!writeKey) {
         return nil;
     }
     SEGAnalyticsConfiguration *configuration = [SEGAnalyticsConfiguration configurationWithWriteKey:writeKey];
     configuration.trackApplicationLifecycleEvents = trackApplicationLifecycleEvents;
-
+    configuration.trackDeepLinks = trackDeepLinks;
+    configuration.trackPushNotifications = trackPushNotifications;
+    
     if (isAmplitudeIntegrationEnabled) {
       [configuration use:[SEGAmplitudeIntegrationFactory instance]];
     }
@@ -369,10 +373,15 @@ static BOOL wasSetupFromFile = NO;
 + (SEGAnalyticsConfiguration*)createConfigFromDict:(NSDictionary*) dict {
     NSString *writeKey = [dict objectForKey: @"writeKey"];
     BOOL trackApplicationLifecycleEvents = [[dict objectForKey: @"trackApplicationLifecycleEvents"] boolValue];
+    BOOL trackPushNotifications = [[dict objectForKey: @"trackPushNotifications"] boolValue];
+    BOOL trackDeepLinks = [[dict objectForKey: @"trackDeepLinks"] boolValue];
     BOOL isAmplitudeIntegrationEnabled = [[dict objectForKey: @"amplitudeIntegrationEnabled"] boolValue];
     BOOL isAppsflyerIntegrationEnabled = [[dict objectForKey: @"appsflyerIntegrationEnabled"] boolValue];
+
     SEGAnalyticsConfiguration *configuration = [SEGAnalyticsConfiguration configurationWithWriteKey:writeKey];
     configuration.trackApplicationLifecycleEvents = trackApplicationLifecycleEvents;
+    configuration.trackDeepLinks = trackDeepLinks;
+    configuration.trackPushNotifications = trackPushNotifications;
 
     if (isAmplitudeIntegrationEnabled) {
       [configuration use:[SEGAmplitudeIntegrationFactory instance]];
