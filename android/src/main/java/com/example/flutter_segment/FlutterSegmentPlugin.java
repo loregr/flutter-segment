@@ -77,6 +77,10 @@ public class FlutterSegmentPlugin implements MethodCallHandler, FlutterPlugin {
         analyticsBuilder.logLevel(LogLevel.DEBUG);
       }
 
+      if (options.getTrackDeepLinks()) {
+        analyticsBuilder.trackDeepLinks();
+      }
+
       if (options.isAmplitudeIntegrationEnabled()) {
         analyticsBuilder.use(AmplitudeIntegration.FACTORY);
       }
